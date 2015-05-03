@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#/usr/bin/env python
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -173,4 +173,28 @@ class Scatterer_Position(object):
         self.HARZ_array = np.delete(self.HARZ_array,self.HARZ_delete_list,0)
         self.TEMP_array = np.delete(self.TEMP_array,self.TEMP_delete_list,0)
 
+        MORB_out = np.empty(self.MORB_array.shape)
+        HARZ_out = np.empty(self.HARZ_array.shape)
+        TEMP_out = np.empty(self.TEMP_array.shape)
+        MORB_file = open('MORB_output.dat','w+')
+        HARZ_file = open('HARZ_output.dat','w+')
+        TEMP_file = open('TEMP_output.dat','w+')
+
+        for ii in range(0,len(self.MORB_array)):
+            MORB_out[ii,0], MORB_out[ii,1] = cart2pol(self.MORB_array[ii,0],
+                    self.MORB_array[ii,1])
+            MORB_file.write(str(MORB_out[ii,0])+' '+str(MORB_out[ii,1])+'\n')
+        for ii in range(0,len(self.HARZ_array)):
+            HARZ_out[ii,0], HARZ_out[ii,1] = cart2pol(self.HARZ_array[ii,0],
+                    self.HARZ_array[ii,1])
+            HARZ_file.write(str(HARZ_out[ii,0])+' '+str(HARZ_out[ii,1])+'\n')
+        for ii in range(0,len(self.TEMP_array)):
+            TEMP_out[ii,0], TEMP_out[ii,1] = cart2pol(self.TEMP_array[ii,0],
+                    self.TEMP_array[ii,1])
+            TEMP_file.write(str(TEMP_out[ii,0])+' '+str(TEMP_out[ii,1])+' '+\
+                    str(self.TEMP_array[ii,2])+'\n')
+
+        MORB_file.close()
+        HARZ_file.close()
+        TEMP_file.close()
 
