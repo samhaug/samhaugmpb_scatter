@@ -6,6 +6,20 @@ import matplotlib.pyplot as plt
 ###############################################################################
 def cart2pol(x,y):
 ###############################################################################
+    '''
+    Converts X,Y coordinates into polar coordinates rad,phi
+    
+    PARAMETERS
+    __________
+
+    X,Y : Two integer-like numbers specifying coordinates.
+
+    RETURNS
+    _______
+
+    rad, phi: Two integer-like numbers specifying the output radius, rad; angle
+    clockwise from north, phi.
+    '''
     rad = np.sqrt(x**2 + y**2)
     phi = np.degrees(np.arctan2(y,x))
     if phi < 0:
@@ -14,6 +28,9 @@ def cart2pol(x,y):
 ###############################################################################
 def pol2cart(rad, phi):
 ###############################################################################
+    '''
+    See cart2pol. Reverse functionality
+    '''
     x = rad * np.cos(np.radians(phi))
     y = rad * np.sin(np.radians(phi))
     return x, y
@@ -21,9 +38,24 @@ def pol2cart(rad, phi):
 ###############################################################################
 class Scatterer_Position(object):
 ###############################################################################
+    '''
+    Creates a profile of MORB, and Harzburite tracer locations as well as 
+    temperature profile for Earth mantle.
 
-# Initialize with the name of the .dat file containing the tracer information.
-# Creates arrays in cartesian and polar.
+    PARAMETERS
+    __________
+
+    MORB_array : string. File path specifying x and y coordinates of each MORB
+    tracer location in mantle run
+
+    HARZ_array : string. File path specifying x and y coordinates of each HARZ
+    tracer location in mantle run
+
+    
+    TEMP_array : string. File path specifying x and y coordinates and temperature
+    of each coordinate in mantle
+    '''
+
 ###############################################################################
     def __init__(self,MORB_array,HARZ_array,TEMP_array):
 ###############################################################################
@@ -82,6 +114,11 @@ class Scatterer_Position(object):
 ###############################################################################
     def preview(self):
 ###############################################################################
+        '''
+        Preview the mantle cross section. The side right of the vertical red line
+        will be kept and output when the command self.cut_and_output() is given.
+        '''
+
         fig = plt.figure(figsize=(12,12))
         ax1 = fig.add_subplot(221)
         c = plt.scatter(self.MORB_array[:,0],self.MORB_array[:,1],s=0.1,marker='.')
@@ -127,7 +164,6 @@ class Scatterer_Position(object):
     def rotate(self,degrees):
 ###############################################################################
 
-# Rotate scatterer positions by degrees counterclockwise.
         self.MORB_polar[:,1] = self.MORB_polar[:,1]+degrees 
         self.HARZ_polar[:,1] = self.HARZ_polar[:,1]+degrees 
         self.TEMP_polar[:,1] = self.TEMP_polar[:,1]+degrees 
