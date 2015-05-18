@@ -82,7 +82,7 @@ theta_column = theta.reshape((theta.size,1))
 radius_column = radius.reshape((radius.size,1))
 
 file = open('Synthetic_vel_structure.csv','w+')
-file.write('Radius (km)   theta (deg from NP)      Vp (km/s)     Vs (km/s)     rho (kg/m^3) \n')
+#file.write('Radius (km)   theta (deg from NP)      Vp (km/s)     Vs (km/s)     rho (kg/m^3) \n')
 for ii in range(0,len(Pressure_column)):
     file.write(str(radius_column[ii][0])+' '+str(theta_column[ii][0])+' '+str(Vp_column[ii][0])+' '+
         str(Vs_column[ii][0])+' '+str(Density_column[ii][0])+'\n')
