@@ -197,12 +197,12 @@ class Scatterer_Position(object):
         self.HARZ_delete_list = list()
         self.TEMP_delete_list = list()
         for ii in range(0,len(self.MORB_array)):  
-            if self.MORB_array[ii,0] < 0:
+            if self.MORB_array[ii,0] < -1.:
                 self.MORB_delete_list.append(ii)
-            if self.HARZ_array[ii,0] < 0:
+            if self.HARZ_array[ii,0] < -1.:
                 self.HARZ_delete_list.append(ii)
         for ii in range(0,len(self.TEMP_array)):  
-            if self.TEMP_array[ii,0] < 0:
+            if self.TEMP_array[ii,0] < -1.:
                 self.TEMP_delete_list.append(ii)
         
         self.MORB_array = np.delete(self.MORB_array,self.MORB_delete_list,0)
@@ -217,15 +217,15 @@ class Scatterer_Position(object):
         TEMP_file = open('TEMP_output.dat','w+')
 
         for ii in range(0,len(self.MORB_array)):
-            MORB_out[ii,0], MORB_out[ii,1] = cart2pol(self.MORB_array[ii,0],
+            MORB_out[ii,0], MORB_out[ii,1] = (self.MORB_array[ii,0],
                     self.MORB_array[ii,1])
             MORB_file.write(str(MORB_out[ii,0])+' '+str(MORB_out[ii,1])+'\n')
         for ii in range(0,len(self.HARZ_array)):
-            HARZ_out[ii,0], HARZ_out[ii,1] = cart2pol(self.HARZ_array[ii,0],
+            HARZ_out[ii,0], HARZ_out[ii,1] = (self.HARZ_array[ii,0],
                     self.HARZ_array[ii,1])
             HARZ_file.write(str(HARZ_out[ii,0])+' '+str(HARZ_out[ii,1])+'\n')
         for ii in range(0,len(self.TEMP_array)):
-            TEMP_out[ii,0], TEMP_out[ii,1] = cart2pol(self.TEMP_array[ii,0],
+            TEMP_out[ii,0], TEMP_out[ii,1] = (self.TEMP_array[ii,0],
                     self.TEMP_array[ii,1])
             TEMP_file.write(str(TEMP_out[ii,0])+' '+str(TEMP_out[ii,1])+' '+\
                     str(self.TEMP_array[ii,2])+'\n')
@@ -233,4 +233,3 @@ class Scatterer_Position(object):
         MORB_file.close()
         HARZ_file.close()
         TEMP_file.close()
-
